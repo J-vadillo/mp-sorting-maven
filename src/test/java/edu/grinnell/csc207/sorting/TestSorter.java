@@ -5,11 +5,11 @@ import edu.grinnell.csc207.util.ArrayUtils;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertFalse;
+// import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+// import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  * Rather, you should subclass it and initialize stringSorter and
  * intSorter in a static @BeforeAll method.
  *
- * @author Your Name
+ * @author Jana Vadillo
  * @uathor Samuel A. Rebelsky
  */
 public class TestSorter {
@@ -120,4 +120,95 @@ public class TestSorter {
     ArrayUtils.permute(original);
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
+
+/**
+ * tests the sorting of an empty array.
+ */
+  @Test 
+  public void EmptySort() { 
+    int SIZE = 0; 
+    if (null == intSorter) { 
+      return; 
+    } // if
+    Integer[] original = new Integer[SIZE];
+    Integer[] expected = original.clone();
+    assertSorts(expected, original, intSorter);
+  } // empty array
+
+
+/**
+ * tests that an array with only one element is not modified.
+ */
+@Test 
+public void oneElement() { 
+  int SIZE = 1; 
+  if (null == intSorter) { 
+    return; 
+  } // if
+  Integer[] original = new Integer[SIZE];
+  original[0] = 1;
+  Integer[] expected = original.clone();
+  assertSorts(expected, original, intSorter);
+} // oneElement
+
+
+
+  /**
+   *tests to see if the sorters can catch a single value out of place.
+   */
+  @Test 
+  public void oneUnordered() { 
+    int SIZE = 100; 
+    if (null == intSorter) { 
+      return; 
+    } // if
+    Integer[] original = new Integer[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+      original[i] = i;
+    } // for
+    Integer[] expected = original.clone();
+    int holder =  original[0];
+    original[0] = original[50];
+    original[50] = holder;
+    assertSorts(expected, original, intSorter);
+  } // oneUndordered
+
+
+
+
+  
+  /**
+   *tests to see if the array sorts an array of all the same element.
+   */
+  @Test 
+  public void allThesame() { 
+    int SIZE = 10; 
+    if (null == intSorter) { 
+      return; 
+    } // if
+    Integer[] original = new Integer[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+      original[i] = 1;
+    } // for
+    Integer[] expected = original.clone();
+    ArrayUtils.permute(original);
+    assertSorts(expected, original, intSorter);
+  } // allTheSame
+
+
+
+    
+  /**
+   *tests to see if the array can sort a list containing empty strings.
+   */
+  @Test 
+  public void emptyStrings() { 
+    if (null == intSorter) { 
+      return; 
+    } // if
+    String[] original =  {"Hello", "Goodbye", "", "GoodMorning", ""};
+    String[] expected = original.clone();
+    ArrayUtils.permute(original);
+    assertSorts(expected, original, stringSorter);
+  } // EmptyString
 } // class TestSorter
