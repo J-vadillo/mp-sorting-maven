@@ -1,8 +1,6 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
-import edu.grinnell.csc207.sorting.SortingUtils;
-
 
 /**
  * Something that sorts using insertion sort.

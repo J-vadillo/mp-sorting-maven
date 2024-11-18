@@ -12,7 +12,7 @@ import java.util.Random;
  * @author Jana Vadillo & sam rebelsky
  */
 
-public class Quicksorter<T> implements Sorter<T> {
+public class VadilloJanaSort<T> implements Sorter<T> {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
@@ -33,7 +33,7 @@ public class Quicksorter<T> implements Sorter<T> {
    *   The order in which elements in the array should be ordered
    *   after sorting.
    */
-  public Quicksorter(Comparator<? super T> comparator) {
+  public VadilloJanaSort(Comparator<? super T> comparator) {
     this.order = comparator;
   } // Quicksorter(Comparator)
 
@@ -60,8 +60,19 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    sortRecursive(values, 0, values.length);
-  } // sort(T[])
+    boolean sorted = true;
+    for (int i = 1; i < values.length; i++){
+        if (this.order.compare(values[i], values[i-1]) == -1){
+            sorted = false;
+            break;
+        }//end if unsorted
+    }//check all values for an unsorted one.
+    if (!sorted){
+        sortRecursive(values, 0, values.length);
+    } // sort(T[])
+
+    }
+   
 /**
  * the recursive core of the sort method described above.
  * @param values the values to be sorted
@@ -73,6 +84,17 @@ public class Quicksorter<T> implements Sorter<T> {
     if (length <= 1){
       return;
     }//base case
+
+    if (length <= 8){
+        for (int i = lowerBound;  i < upperBound; i++){
+            T val = values[i];
+            int checking = i-1;
+            while ((checking >= 0) && (this.order.compare(values[checking], val) >= 1)){
+              SortingUtils.swapValues(values, checking + 1, checking);
+              checking = checking -1;
+            }// itterate through shifting back and opening up space
+          }//itterate through the list placing values in their correct spot
+      }//insertionSort for small arrays
 
     int pivotSort = 0;// designates the start of the area with the sorted pivot numbers
     int largeSort = 0;//designaes the start of the area with the sorted large numbers
@@ -86,7 +108,7 @@ public class Quicksorter<T> implements Sorter<T> {
     //place the selected pivot into our location
 
     //the ++ for unsorted is moved into the function below
-    for (unsorted++; unsorted < upperBound; unsorted++){
+    for (unsorted = 0; unsorted < upperBound; unsorted++){
       if (this.order.compare(values[unsorted], pivot) > 0){
         continue;
       }else if (this.order.compare(values[unsorted], pivot) == 0){
