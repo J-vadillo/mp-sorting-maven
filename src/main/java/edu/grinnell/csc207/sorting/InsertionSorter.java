@@ -1,6 +1,8 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
+import edu.grinnell.csc207.sorting.SortingUtils;
+
 
 /**
  * Something that sorts using insertion sort.
@@ -55,6 +57,13 @@ public class InsertionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    for (int i = 1;  i < values.length; i++){
+      T val = values[i];
+      int checking = i-1;
+      while ((checking >= 0) && (this.order.compare(values[checking], val) >= 1)){
+        SortingUtils.swapValues(values, checking + 1, checking);
+        checking = checking -1;
+      }// itterate through shifting back and opening up space
+    }//itterate through the list placing values in their correct spot
   } // sort(T[])
 } // class InsertionSorter
