@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
+import java.util.Arrays;
 
 /**
  * Something that sorts using merge sort.
@@ -40,6 +41,7 @@ public class MergeSorter<T> implements Sorter<T> {
   // | Methods |
   // +---------+
 
+
   /**
    * Sort an array in place using merge sort.
    *
@@ -55,6 +57,41 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    if (values.length <= 1){
+      return;
+    }//base case
+    int mid = values.length / 2;
+    T[] arrayOne = Arrays.copyOfRange(values,0,mid);
+    T[] arrayTwo = Arrays.copyOfRange(values,mid,values.length);
+
+    this.sort(arrayOne);
+    this.sort(arrayTwo);
+
+    int oneSorted = 0;
+    int twoSorted = 0;
+
+    for (int i = 0; i < values.length; i ++){
+      if (oneSorted >= arrayOne.length){
+        values[i] = arrayTwo[twoSorted];
+        twoSorted++;
+        continue;
+      }else if (twoSorted >= arrayTwo.length){
+        values[i] = arrayOne[oneSorted];
+        oneSorted++;
+        continue;
+      } // checks for if we ran out of elements on either array
+
+      if (this.order.compare(arrayOne[oneSorted], arrayTwo[twoSorted]) <= 0 ){
+        values[i] = arrayOne[oneSorted];
+        oneSorted++;
+      }else{
+        values[i] = arrayTwo[twoSorted];
+        twoSorted++;
+      } // if else handling which array to copy from
+    }//for loop filling out the needed array.
+    return;
   } // sort(T[])
+
+
+
 } // class MergeSorter
