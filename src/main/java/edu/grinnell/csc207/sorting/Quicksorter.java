@@ -41,7 +41,7 @@ public class Quicksorter<T> implements Sorter<T> {
   // | Methods |
   // +---------+
   /**
-   * a handy dandy random number generator :)
+   * a handy dandy random number generator :).
    */
   static Random rand = new Random();
 
@@ -68,15 +68,15 @@ public class Quicksorter<T> implements Sorter<T> {
  * @param lowerBound the lowerBound of sorted values
  * @param upperBound the upper bound of sorted values
  */
-  private void sortRecursive(T[] values, int lowerBound, int upperBound){
+  private void sortRecursive(T[] values, int lowerBound, int upperBound) {
     int length =  upperBound - lowerBound;
-    if (length <= 1){
+    if (length <= 1) {
       return;
-    }//base case
+    } //base case
 
-    int pivotSort = 0;// designates the start of the area with the sorted pivot numbers
-    int largeSort = 0;//designaes the start of the area with the sorted large numbers
-    int unsorted = 0;//designates the start of the area with the unsorted small numbers.
+    int pivotSort = lowerBound; // designates the start of the area with the sorted pivot numbers
+    int largeSort = lowerBound; //designaes the start of the area with the sorted large numbers
+    int unsorted = lowerBound; //designates the start of the area with the unsorted small numbers.
 
     int pivotIndex = lowerBound + rand.nextInt(length);
     T pivot = values[pivotIndex];
@@ -86,22 +86,22 @@ public class Quicksorter<T> implements Sorter<T> {
     //place the selected pivot into our location
 
     //the ++ for unsorted is moved into the function below
-    for (unsorted++; unsorted < upperBound; unsorted++){
-      if (this.order.compare(values[unsorted], pivot) > 0){
+    for (unsorted++; unsorted < upperBound; unsorted++) {
+      if (this.order.compare(values[unsorted], pivot) > 0) {
         continue;
-      }else if (this.order.compare(values[unsorted], pivot) == 0){
+      } else if (this.order.compare(values[unsorted], pivot) == 0) {
         SortingUtils.swapValues(values, largeSort, unsorted);
-        largeSort ++;
-      }else if(this.order.compare(values[unsorted], pivot) < 0){
+        largeSort++;
+      } else if (this.order.compare(values[unsorted], pivot) < 0) {
         SortingUtils.swapValues(values, largeSort, unsorted);
         SortingUtils.swapValues(values, largeSort, pivotSort);
-        largeSort ++;
-        pivotSort ++;
-      }//decides where to place value
-    }// itterates through list dividing hte respective values.
+        largeSort++;
+        pivotSort++;
+      } //decides where to place value
+    } // itterates through list dividing hte respective values.
 
     sortRecursive(values, lowerBound, pivotSort);
     sortRecursive(values, largeSort, unsorted);
     return;
-  }
+  } //sortRecursive(T[], int, int)
 } // class Quicksorter

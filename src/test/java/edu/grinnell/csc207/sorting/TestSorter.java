@@ -206,7 +206,7 @@ public void oneElement() {
     if (null == intSorter) { 
       return; 
     } // if
-    String[] original =  { "",  " ", "GoodBye", "GoodMorning", "Hello"};
+    String[] original =  { " ",  " ", "GoodBye", "GoodMorning", "Hello"};
     String[] expected = original.clone();
     ArrayUtils.permute(original);
     assertSorts(expected, original, stringSorter);
